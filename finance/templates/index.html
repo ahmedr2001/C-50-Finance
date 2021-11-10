@@ -1,0 +1,40 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table style="width:100%" align="center">
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>TOTAL</th>
+        </tr>
+
+        {% for i in range(symbol|length) %}
+        {% if shares[i] != 0 %}
+        <tr>
+            <td>{{ symbol[i]['symbol'] }}</td>
+            <td>{{ symbol[i]['name'] }}</td>
+            <td>{{ shares[i] }}</td>
+            <td>{{ symbol[i]['price']|usd }}</td>
+
+            <td>{{ (symbol[i]['price'] * shares[i]) | usd }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+        <tr>
+            <td align="center" colspan="4">CASH</td>
+            <td>{{ cash|usd }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td>{{ (cash + totals)  | usd}}</td>
+        </tr>
+    </table>
+{% endblock %}
